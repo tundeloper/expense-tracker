@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
+import { ExpenseContext } from '../store/context/expenses-contest'
 
 export default function AllExpenses() {
-  return <ExpensesOutput expensesPeriod="Total" />
+  const {expenses} = useContext(ExpenseContext)
+  return <ExpensesOutput expenses={expenses} expensesPeriod="Total" />
 }
