@@ -4,7 +4,7 @@ import IconButton from "../components/UI/IconButton";
 import GlobalStyles from "../constants/styles";
 import Button from "../components/UI/Button";
 import { ExpenseContext } from "../store/context/expenses-contest";
-import ExpenseForm from "../components/ManageExpense/expenseForm";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 // import { useSelector, useDispatch } from 'react-redux'
 
 
