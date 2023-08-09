@@ -29,7 +29,6 @@ export default function MangeExpenses({ route, navigation }) {
     navigation.goBack()
   }
   const confirmHandler = (expenseData) => {
-    console.log(expenseData)
     if (isEditing) {
       ctx.updateExpense(editedExpenseId, expenseData)
     } else {
