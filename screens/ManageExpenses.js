@@ -13,6 +13,7 @@ export default function MangeExpenses({ route, navigation }) {
   const editedExpenseId = route.params?.expenseId
   const isEditing = !!editedExpenseId
 
+  const selectedExpense = ctx.expenses.find(expense => expense.id === editedExpenseId)
   useLayoutEffect(() => {
     navigation.setOptions(
     {title: isEditing ? 'Edit Expense': 'Add Expense'}
@@ -27,24 +28,20 @@ export default function MangeExpenses({ route, navigation }) {
   const cancelHandler = () => {
     navigation.goBack()
   }
-  
-  const confirmHandler = () => {
-    // isEditing ? ctx.UpdateExpense() : ctx.addExpense()
+  const confirmHandler = (expenseData) => {
+    console.log(expenseData)
     if (isEditing) {
-      ctx.updateExpense(editedExpenseId, {description: 'Test!!!!', date: new Date(), amont: 29.99})
+      ctx.updateExpense(editedExpenseId, expenseData)
     } else {
-      ctx.addExpense({description: 'Test', date: new Date(), amount: 19.99})
+      ctx.addExpense(expenseData)
     }
     navigation.goBack()
   }
   
   return (
     <View style={styles.container}>
-      <ExpenseForm />
-      <View style={styles.buttons}>
-        <Button style={styles.button} mode='flat' onPress={cancelHandler}>Cancel</Button>
-        <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
-      </View>
+      <ExpenseForm isEditing={isEditing} onSubmit={confirmHandler} onCancel={cancelHandler} defaultVal={selectedExpense} />
+      
       <View style={styles.deleteContainer}>
         {isEditing && <IconButton icon={'trash'} color={GlobalStyles().colors.error500} onPress={deleteExpenseHandler} size={36}/>}
       </View>
@@ -58,15 +55,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: GlobalStyles().colors.primary800
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
   },
   deleteContainer: {
     marginTop: 16,
