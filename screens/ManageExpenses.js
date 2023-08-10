@@ -5,7 +5,7 @@ import GlobalStyles from "../constants/styles";
 import Button from "../components/UI/Button";
 import { ExpenseContext } from "../store/context/expenses-contest";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
-import { storeExpense } from "../utils/http";
+import { deleteExpense, storeExpense, updatedExpense } from "../utils/http";
 // import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -21,17 +21,20 @@ export default function MangeExpenses({ route, navigation }) {
   )
   }, [navigation, isEditing])
 
-  const deleteExpenseHandler = () => {
+  const deleteExpenseHandler = async () => {
     ctx.deleteExpense(editedExpenseId)
+    await deleteExpense(editedExpenseId)
     navigation.goBack()
   }
 
   const cancelHandler = () => {
     navigation.goBack()
   }
+
   const confirmHandler = async (expenseData) => {
     if (isEditing) {
       ctx.updateExpense(editedExpenseId, expenseData)
+      await updatedExpense(editedExpenseId, expenseData)
     } else {
       const id = await storeExpense(expenseData)
       ctx.addExpense({...expenseData, id})

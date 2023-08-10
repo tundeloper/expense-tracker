@@ -8,6 +8,15 @@ export async function storeExpense(expenseData) {
     return id 
 } 
 
+export function updatedExpense(id, expenseData) {
+    axios.put(`${BACKEND_URL}/expenses/${id}.json`, expenseData)
+}
+
+export  function deleteExpense(id) {
+    return axios.delete(`${BACKEND_URL}/expenses/${id}.json`)
+}
+
+
 export async function fetchExpenses() {
     const response = await axios.get(`${BACKEND_URL}/expenses.json`);
 
