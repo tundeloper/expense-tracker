@@ -10,9 +10,12 @@ const BotomTabs = createBottomTabNavigator()
 import GlobalStyles from './constants/styles';
 import { Ionicons } from '@expo/vector-icons';
 import IconButton from './components/UI/IconButton';
+// import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
 import ExpenseContextProvider from './store/context/expenses-contest';
+import OTPInput2 from './components/UI/OTPInput2';
+import OTPInput from './components/UI/OTPInput';
 
 function ExpenpesesOverview() {
   return (
@@ -57,6 +60,7 @@ export default function App() {
             title: 'manage expense',
             presentation: 'modal',
           }}/>
+          <Stack.Screen name='OTPInput' component={OTPInput2} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="light" />
